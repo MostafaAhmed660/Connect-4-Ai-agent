@@ -201,7 +201,7 @@ public class Main extends Application {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("GameOver");
                 alert.setHeaderText("Congratulations!");
-                alert.setContentText(SampleController.getPlayerRedName()  + " (Red) Wins = " + counterWins[0]);
+                alert.setContentText(SampleController.getPlayerRedName()  + " (Red) Wins = " + counterWins[0] +"-"+counterWins[1]);
                 alert.show();
                 //System.out.println("Congratulations! " + SampleController.getPlayerRedName()  + "(Red) Wins = " + counterWins[0]);
             }
@@ -217,7 +217,7 @@ public class Main extends Application {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("GameOver");
                 alert.setHeaderText("Lose :(");
-                alert.setContentText("Computer" + "(Yellow) Wins = " + counterWins[1]);
+                alert.setContentText("Computer" + "(Yellow) Wins = " + counterWins[1]+"-"+counterWins[0]);
                 alert.show();
                 //System.out.println("Lose! " + "Computer" + "(Yellow) Wins = " + counterWins[1]);
             }
