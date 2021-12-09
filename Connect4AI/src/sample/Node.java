@@ -65,7 +65,8 @@ public class Node {
         }
     }
     public boolean check_terminal(){
-        return this.level_k== Board.getBranching_depth_k() ;
+
+        return (this.level_k== Board.getBranching_depth_k() || Board.isFull(this.State));
     }
 
 }

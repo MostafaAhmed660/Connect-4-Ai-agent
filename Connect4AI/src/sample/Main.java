@@ -36,6 +36,7 @@ public class Main extends Application {
     public static int [] counterMoves = {0,0};
     private static Disc[][] grid = new Disc[COLUMNS][ROWS];
     private static Pane discRoot = new Pane();
+    private static boolean gameOver = false;
     
     // Building The Outline Borders 
     
@@ -104,20 +105,24 @@ public class Main extends Application {
                     int[][] initialState = getGridNumbers();
                     Board.setState(initialState);
 
-                    long start = System.currentTimeMillis();
-                    Node root = Board.take_decision();
-                    long end=System.currentTimeMillis();
+                    if (!gameOver){
+                        long start = System.currentTimeMillis();
+                        Node root = Board.take_decision();
+                        long end=System.currentTimeMillis();
 
-                    float time=(end-start)/1000F;
-                    System.out.println("Time consumed: "+time+" seconds");
-                    System.out.println("number of Nodes Explored : "+Board.getExploredNodes()+"\n\n");
+                        //float time=(end-start)/1000F;
+                        float time=(end-start);
+                        System.out.println("Time consumed: "+time+" milli seconds");
+                        System.out.println("number of Nodes Explored : "+Board.getExploredNodes()+"\n\n");
 
-                    Board.print_tree(root);
+                        //Board.print_tree(root);
 
-                    int aiChoice = Board.getColumnNumber(initialState) ;
-                    if (aiChoice != -1) {
-                        placeDisc(new Disc(redMove), aiChoice);
+                        int aiChoice = Board.getColumnNumber(initialState) ;
+                        if (aiChoice != -1) {
+                            placeDisc(new Disc(redMove), aiChoice);
+                        }
                     }
+
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -184,7 +189,7 @@ public class Main extends Application {
 
 
         int movesToEnd = (COLUMNS*ROWS)/2;
-        boolean falg = ((COLUMNS*ROWS) % 2 == 0 ? true : false) , gameOver = false;
+        boolean falg = ((COLUMNS*ROWS) % 2 == 0 ? true : false) ;
         if (falg  && counterMoves[0] == movesToEnd && counterMoves[1] == movesToEnd)
             gameOver =true ;
         else if (!falg && (counterMoves[0] == movesToEnd+1 || counterMoves[1] == movesToEnd+1))

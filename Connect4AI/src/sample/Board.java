@@ -16,9 +16,9 @@ public class Board {
     private static boolean bruning=true;
     public static int explored_nodes=0;
 
-    public static boolean isFull(){
+    public static boolean isFull(int[][] dumyState){
         for(int i=0;i<cols_range;i++){
-            if(state[rows_range-1][i]==0){
+            if(dumyState[rows_range-1][i]==0){
                 return false;
             }
         }
