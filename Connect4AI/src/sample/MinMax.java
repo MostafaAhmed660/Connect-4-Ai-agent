@@ -30,6 +30,9 @@ public class MinMax {
             }
         }
 
+        if (Board.getBranching_depth_k() > 3)
+            node.clear_children_list();
+
         node.setUtility(minUtility);
 
         return new Tuple(minChild,minUtility);
@@ -63,6 +66,9 @@ public class MinMax {
                     alpha = maxUtility ;
             }
         }
+
+        if (Board.getBranching_depth_k() > 3)
+            node.clear_children_list();
 
         node.setUtility(maxUtility);
 

@@ -129,7 +129,7 @@ public class Huristic_Function {
         return 0 ;
     }
 
-    public static int huristic2(int[][]state){
+    public static int huristic2(int[][]state,int coco){
         int score=0;                //total score for that state
         //iterate columns
         for(int k=1;k<=2;k++) {

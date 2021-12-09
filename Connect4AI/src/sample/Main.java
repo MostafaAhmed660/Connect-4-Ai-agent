@@ -123,7 +123,7 @@ public class Main extends Application {
                         System.out.println("Time consumed: "+time+" milli seconds");
                         System.out.println("number of Nodes Explored : "+Board.getExploredNodes()+"\n\n");
 
-                        //Board.print_tree(root);
+                        Board.print_tree(root);
 
                         int aiChoice = Board.getColumnNumber(initialState) ;
                         if (aiChoice != -1) {
