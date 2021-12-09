@@ -105,15 +105,19 @@ public class Main extends Application {
                     Board.setState(initialState);
 
                     long start = System.currentTimeMillis();
-                    Board.take_decision();
+                    Node root = Board.take_decision();
                     long end=System.currentTimeMillis();
 
                     float time=(end-start)/1000F;
                     System.out.println("Time consumed: "+time+" seconds");
-                    System.out.println("number of Nodes Explored : "+Board.getExploredNodes());
+                    System.out.println("number of Nodes Explored : "+Board.getExploredNodes()+"\n\n");
+
+                    Board.print_tree(root);
 
                     int aiChoice = Board.getColumnNumber(initialState) ;
-                    placeDisc(new Disc(redMove), aiChoice);
+                    if (aiChoice != -1) {
+                        placeDisc(new Disc(redMove), aiChoice);
+                    }
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -179,9 +183,15 @@ public class Main extends Application {
         }
 
 
+        int movesToEnd = (COLUMNS*ROWS)/2;
+        boolean falg = ((COLUMNS*ROWS) % 2 == 0 ? true : false) , gameOver = false;
+        if (falg  && counterMoves[0] == movesToEnd && counterMoves[1] == movesToEnd)
+            gameOver =true ;
+        else if (!falg && (counterMoves[0] == movesToEnd+1 || counterMoves[1] == movesToEnd+1))
+            gameOver =true ;
 
         //if the game is over print result
-        if (counterMoves[0] == 21 && counterMoves[1] == 21) {
+        if (gameOver) {
             if (counterWins[0] > counterWins[1]) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("GameOver");

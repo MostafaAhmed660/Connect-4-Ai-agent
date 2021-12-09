@@ -1,4 +1,7 @@
 package sample;
+
+import java.util.ArrayList;
+
 public class Board {
     public static final int PLAYER1 = 1;
     public static final int PLAYER2 = 2;
@@ -28,6 +31,9 @@ public class Board {
     public static Boolean bruning(){return bruning;}
 
     public static void setState(int[][] grid) {
+        rows_range = grid.length;
+        cols_range = grid[0].length;
+        state = new int[rows_range][cols_range];
         state = grid;
     }
 
@@ -61,7 +67,7 @@ public class Board {
     }
 
     //AI agent take decision and change state of board
-    public static void take_decision(){
+    public static Node take_decision(){
         Node initial_node=new Node(state,null,0);
         int oldHeuristic = Huristic_Function.eval_state(state,0);
         explored_nodes=0;
@@ -71,6 +77,7 @@ public class Board {
         else {
             state= MinMax.Maximize(initial_node,oldHeuristic,false,0,0).getState();
         }
+        return initial_node;
     }
 
     public static void copy_array(int[][]arr1,int[][] arr2){
@@ -89,6 +96,45 @@ public class Board {
                     return j ;
             }
         }
-        return 0 ;
+        return -1 ;
     }
+
+    public static void print_tree(Node initial_node) {
+        // print each level of tree in row
+        ArrayList<Node> bfs_traverse = new ArrayList<>(0);
+        bfs_traverse.add(initial_node);
+        int level = 1;
+        while (!bfs_traverse.isEmpty()) {
+            if (level % 2 == 1) {
+                System.out.println("Max");
+            } else {
+                System.out.println("Min");
+            }
+            level++;
+            for (int i = 0; i < Board.getRows_range(); i++) {
+                if (i == 0) {
+                    for (int j = 0; j < bfs_traverse.size(); j++) {
+                        System.out.print("Utility= " + bfs_traverse.get(j).getUtility() + "    ");
+                    }
+                    System.out.println();
+                }
+                for (int j = 0; j < bfs_traverse.size(); j++) {
+                    for (int col = 0; col < Board.getCols_range(); col++) {
+                        System.out.print(bfs_traverse.get(j).getState()[i][col]);
+                    }
+                    System.out.print("       ");
+                }
+                System.out.println();
+            }
+            System.out.println("\n");
+            int size = bfs_traverse.size();
+            for (int i = 0; i < size; i++) {
+                Node current_node = bfs_traverse.remove(0);
+                for (Node child : current_node.getChildren()) {
+                    bfs_traverse.add(child);
+                }
+            }
+        }
+    }
+
 }
