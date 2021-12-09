@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
+
 <BorderPane prefHeight="800.0" prefWidth="750.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SampleController">
-   <bottom>
+   <center>
       <Pane prefHeight="800.0" prefWidth="750.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
             <RadioButton fx:id="withAlphBeta" layoutX="227.0" layoutY="600.0" mnemonicParsing="false" text="Minimax with alpha-beta pruning">
@@ -21,7 +27,7 @@
                   <ToggleGroup fx:id="MinimaxType" />
                </toggleGroup>
             </RadioButton>
-            <ImageView fitHeight="368.0" fitWidth="560.0" layoutX="117.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="305.0" fitWidth="515.0" layoutX="157.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="C:\Users\20127\Desktop\Connect4AI\00.jpeg" />
                </image>
@@ -54,7 +60,7 @@
                   </DropShadow>
                </effect>
             </Label>
-            <Label layoutX="329.0" layoutY="345.0" prefHeight="23.0" prefWidth="91.0" style="-fx-background-color: white;" text="  Your Name ">
+            <Label layoutX="329.0" layoutY="288.0" prefHeight="23.0" prefWidth="91.0" style="-fx-background-color: white;" text="  Your Name ">
                <font>
                   <Font size="15.0" />
                </font>
@@ -66,13 +72,39 @@
                   </DropShadow>
                </effect>
             </Label>
-            <TextField fx:id="playerName" alignment="CENTER" layoutX="198.0" layoutY="384.0" prefHeight="32.0" prefWidth="354.0" promptText="Player Name" />
+            <TextField fx:id="playerName" alignment="CENTER" layoutX="197.0" layoutY="328.0" prefHeight="32.0" prefWidth="354.0" promptText="Player Name" />
             <RadioButton fx:id="withoutAlphBeta" layoutX="227.0" layoutY="630.0" mnemonicParsing="false" text="Minimax without alpha-beta pruning" toggleGroup="$MinimaxType">
                <font>
                   <Font size="16.0" />
                </font>
             </RadioButton>
+            <Slider fx:id="rowInput" blockIncrement="1.0" layoutX="215.0" layoutY="426.0" majorTickUnit="1.0" max="12.0" min="6.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="6.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="389.0" prefHeight="23.0" prefWidth="91.0" style="-fx-background-color: white;" text="Rows">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.6184210777282715" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Label alignment="CENTER" layoutX="409.0" layoutY="389.0" prefHeight="23.0" prefWidth="91.0" style="-fx-background-color: white;" text="Columns" textAlignment="CENTER">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color blue="0.6184210777282715" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Slider fx:id="columnInput" blockIncrement="1.0" layoutX="385.0" layoutY="426.0" majorTickUnit="1.0" max="12.0" min="7.0" minorTickCount="1" showTickLabels="true" snapToTicks="true" value="7.0" />
          </children>
       </Pane>
-   </bottom>
+   </center>
 </BorderPane>

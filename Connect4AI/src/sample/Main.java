@@ -28,8 +28,8 @@ import java.util.stream.IntStream;
 
 public class Main extends Application {
     private static final int TILE_SIZE = 80;
-    private static final int COLUMNS = 7;
-    private static final int ROWS = 6;
+    private static  int COLUMNS = 7;
+    private static  int ROWS = 6;
 
     private static boolean redMove = true;
     public static int [] counterWins = {0,0};
@@ -37,13 +37,21 @@ public class Main extends Application {
     private static Disc[][] grid = new Disc[COLUMNS][ROWS];
     private static Pane discRoot = new Pane();
     private static boolean gameOver = false;
-    
+
+
+    // change board dimension
+    public static void  changeDimension(int newRows, int newColumns) {
+        COLUMNS = newColumns ;
+        ROWS = newRows;
+        grid = new Disc[COLUMNS][ROWS];
+    }
+
     // Building The Outline Borders 
-    
+
     public static Parent createContent() {
         Pane root = new Pane();
         root.getChildren().add(discRoot);
-        
+
         Shape gridShape = makeGrid();
         root.getChildren().add(gridShape);
         root.getChildren().addAll(makeColumns());
@@ -52,7 +60,7 @@ public class Main extends Application {
     }
 
     // Building The Blue Background and the White Circle Holes of the game
-    
+
     public static Shape makeGrid() {
         Shape shape = new Rectangle((COLUMNS + 1) * TILE_SIZE, (ROWS + 1) * TILE_SIZE);
 
@@ -83,7 +91,7 @@ public class Main extends Application {
     }
 
     // Making rectangle glows when mouse points on the columns 
-    
+
     public static List<Rectangle> makeColumns() {
         List<Rectangle> list = new ArrayList<>();
 
@@ -97,11 +105,11 @@ public class Main extends Application {
 
             final int column = x;
             rect.setOnMouseClicked(e -> {
-				try {
-				    //human play
-					placeDisc(new Disc(redMove), column);
+                try {
+                    //human play
+                    placeDisc(new Disc(redMove), column);
 
-					//then ai turn
+                    //then ai turn
                     int[][] initialState = getGridNumbers();
                     Board.setState(initialState);
 
@@ -123,10 +131,10 @@ public class Main extends Application {
                         }
                     }
 
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-			});
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            });
 
             list.add(rect);
         }
@@ -134,7 +142,7 @@ public class Main extends Application {
     }
 
     // Placing colored discs in the grid
-    
+
     public static void placeDisc(Disc disc, int column) throws InterruptedException {
         int row = ROWS - 1;
         do {
@@ -224,7 +232,7 @@ public class Main extends Application {
         }
         redMove = !redMove ;
     }
-    
+
     // Placing colored discs in the grid
 
     public static boolean turnEnded(int column, int row) {
@@ -245,7 +253,7 @@ public class Main extends Application {
         List<Point2D> diagonal2 = IntStream.rangeClosed(0, 6)
                 .mapToObj(i -> botLeft.add(i, -i))
                 .collect(Collectors.toList());
-        
+
         checkRange(vertical);
         checkRange(horizontal);
         checkRange(diagonal1);
@@ -264,12 +272,12 @@ public class Main extends Application {
             if (disc.red == redMove) {
                 chain++;
                 if (chain == 4) {
-                	if (redMove) {
-                    	counterWins[0] = counterWins[0] + 1;                		
-                	}
-                	else {
-                    	counterWins[1] = counterWins[1] + 1;                		               		
-                	}
+                    if (redMove) {
+                        counterWins[0] = counterWins[0] + 1;
+                    }
+                    else {
+                        counterWins[1] = counterWins[1] + 1;
+                    }
                     //return true;
                 }
             } else {
@@ -280,19 +288,19 @@ public class Main extends Application {
         //return false;
     }
 
-    
-    
+
+
     // Getting the existing disc in certain cell (column, row)
-    
+
     private static Optional<Disc> getDisc(int column, int row) {
         if (column < 0 || column >= COLUMNS || row < 0 || row >= ROWS)
             return Optional.empty();
 
         return Optional.ofNullable(grid[column][row]);
     }
-    
+
     // Identifying The Colored Inserted Disks (Red & Yellow)
-    
+
     public static class Disc extends Circle {
         private final boolean red;
         public Disc(boolean red) {
@@ -302,43 +310,43 @@ public class Main extends Application {
             setCenterY(TILE_SIZE / 2);
         }
         public boolean getColor() {
-        	return this.red ;
+            return this.red ;
         }
     }
 
-	@Override
-	public void start(Stage primaryStage) {
-		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
-			Scene scene = new Scene(root,750,800);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
-			primaryStage.setScene(scene);
-			primaryStage.setTitle("Connect 4 Game");
-			primaryStage.centerOnScreen();
-			primaryStage.show();
-	        
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	// Converting the grid array to number format 
-	
-	public static int[][] getGridNumbers(){
-       
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
+            Scene scene = new Scene(root,750,800);
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Connect 4 Game");
+            primaryStage.centerOnScreen();
+            primaryStage.show();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // Converting the grid array to number format
+
+    public static int[][] getGridNumbers(){
+
         int[][] ans = new int[ROWS][COLUMNS];
         int newColumn = 0 , newRow = 0 ;
         for (int oldColumn = ROWS-1 ; oldColumn >= 0;oldColumn--){
             newColumn = 0 ;
             for (int oldrow = 0 ; oldrow < COLUMNS ; oldrow++){
-            	if (grid[oldrow][oldColumn] == null)
-            		ans[newRow][newColumn] = 0;
-            	else if (grid[oldrow][oldColumn].getColor() == true)
-            		ans[newRow][newColumn] = 2;
-            	else
-            		ans[newRow][newColumn] = 1;
+                if (grid[oldrow][oldColumn] == null)
+                    ans[newRow][newColumn] = 0;
+                else if (grid[oldrow][oldColumn].getColor() == true)
+                    ans[newRow][newColumn] = 2;
+                else
+                    ans[newRow][newColumn] = 1;
                 newColumn++;
             }
             newRow++;
@@ -346,6 +354,6 @@ public class Main extends Application {
         return ans;
     }
 
-	
-	public static void main(String[] args) { launch(args); }
+
+    public static void main(String[] args) { launch(args); }
 }
