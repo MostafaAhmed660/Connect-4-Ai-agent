@@ -13,6 +13,7 @@ public class Node {
         this.Parent=parent;
         this.level_k=level_k;
         Children = new ArrayList<>(0);
+        //utility = Integer.MAX_VALUE ;
     }
     public void setState(int[][] state) {
         State = state;
